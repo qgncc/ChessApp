@@ -1,6 +1,6 @@
 import * as t from "./types";
-import {PieceClassName} from "./types";
-let ChessView = function (board: (t.Piece|null)[][]) {
+
+let ChessView = function () {
 
 
     const BLACK_PIECES_CLASSES = {
@@ -25,13 +25,14 @@ let ChessView = function (board: (t.Piece|null)[][]) {
 
     const PROMOTION_PIECES = ["r", "n", "b", "q"] as const;
 
+
+
     let boardHTMLElement = document.createElement('div');
     boardHTMLElement.className = "chessboard chessboard-t";
     boardHTMLElement.id = "chessboard";
 
     let boardWidth: number;
     let boardHeight: number;
-
 
     let selectedPiece: t.Piece | null = null;
 
@@ -40,6 +41,14 @@ let ChessView = function (board: (t.Piece|null)[][]) {
     let promotionArgs: any;
 
     let isFlipped: boolean;
+
+    let toNumeric = function(i: t.AlgebraicNotation): t.Square{
+        return {file :(i.charCodeAt(0)-96), rank: (parseInt(i.charAt(1)))} as t.Square;
+    }
+    let toAlgebraic = function(i: t.Square): t.AlgebraicNotation{
+        return ("abcdefgh".slice(i.file-1,i.file)+i.rank.toString()) as t.AlgebraicNotation;
+    }
+
 
     // UTILITIES
     let translateBoardCoordsSystemToMatrix = function ({file, rank}: t.Square): t.Indexes {
@@ -55,7 +64,7 @@ let ChessView = function (board: (t.Piece|null)[][]) {
     };
 
     // PIECE THINGS
-    let getPieceClassFromHTML = function (piece: HTMLElement): undefined| PieceClassName{
+    let getPieceClassFromHTML = function (piece: HTMLElement): undefined| t.PieceClassName{
         let pieceClass;
         piece.classList.forEach(
             (value) => {
@@ -124,18 +133,6 @@ let ChessView = function (board: (t.Piece|null)[][]) {
         div.className = `piece ${pieceIMG} ${squareClass}`;
         div.style.cssText = "";
         return div;
-    }
-
-    //GAME THINGS
-
-    let declareGameEnd = function (reason: string): void {
-        let div = document.createElement('div');
-        let br = document.createElement('br');
-        div.className = "victory victory-t";
-        div.append(`Game over!`);
-        div.append(br);
-        div.append(reason);
-        boardHTMLElement.append(div);
     }
 
     //SQUARE
@@ -392,14 +389,23 @@ let ChessView = function (board: (t.Piece|null)[][]) {
         openPromotionWindow: function(square: t.Square, color: t.Color, promotionFunction: any, ...promotionArgs: any){
             openPromotionWindow(square,color,promotionFunction,...promotionArgs);
         },
-        declareGameEnd: function (reason: string){
-            declareGameEnd(reason);
-        },
-        render: function (root: HTMLElement,flipped: boolean = false) {
-            root.append(boardHTMLElement);
 
-            boardWidth = boardHTMLElement.offsetWidth;
-            boardHeight = boardHTMLElement.offsetHeight;
+        toAlgebraic: function (i:t.Square) {
+            return toAlgebraic(i);
+        },
+        toNumeric: function (i: t.AlgebraicNotation) {
+            return toNumeric(i);
+        },
+        render: function (root: HTMLElement,board: (t.Piece|null)[][],flipped: boolean = false) {
+            let pieces = boardHTMLElement.getElementsByClassName("piece");
+            while(pieces.length > 0){
+                pieces[0].remove();
+            }
+            if(!boardHTMLElement.isConnected){
+                root.append(boardHTMLElement);
+                boardWidth = boardHTMLElement.offsetWidth;
+                boardHeight = boardHTMLElement.offsetHeight;
+            }
 
             isFlipped = flipped
             if(isFlipped) boardHTMLElement.classList.add("flipped");
