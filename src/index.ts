@@ -1,9 +1,8 @@
 import 'css/main.scss'
 import Controller from './ts/Controller'
-import ChessGame from "./ts/ChessGame";
 
 
-let host = "localhost:8080/";
+let host = "192.168.0.2:8080/";
 let root = document.getElementById("wrapper");
 if(!root) throw new Error("!root");
 let socket = new WebSocket("ws://"+host);
