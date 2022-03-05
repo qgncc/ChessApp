@@ -1,4 +1,4 @@
-#ChessApp
+# ChessApp
 ChessApp - многопользовательская игра в шахматы написанная на TS/HTML/SCSS 
 с использованием шахматного движка [chessjs](https://github.com/jhlywa/chess.js)
 
