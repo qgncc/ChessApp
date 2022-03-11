@@ -2,7 +2,7 @@ import ChessView from "./ChessView";
 
 import * as t from "./types";
 
-const ChessState = require("src/ts/GameState");
+import {ChessGameState} from "./GameState";
 const Chess = require('chess.js');
 
 
@@ -16,7 +16,7 @@ let ChessGame = function(root: HTMLElement|null){
     let ChessEngine = new Chess();
     let Board = ChessView();
     let side: t.Color;
-    let state = ChessState();
+    let state = ChessGameState();
     //from algebraic notation to numeric notation
     function isGameOver(){
         if(ChessEngine.game_over()){
@@ -161,7 +161,7 @@ let ChessGame = function(root: HTMLElement|null){
             }
         }
         Board.stopDragging();
-        Board.HTMLElement().removeEventListener('mouseup', onMouseUp);
+        Board.BoardHTMLElement.removeEventListener('mouseup', onMouseUp);
     }
 
     let onMouseDown = function (event:MouseEvent) {
@@ -176,8 +176,8 @@ let ChessGame = function(root: HTMLElement|null){
                 makeMove(piece, squareTo)
             }
         }
-        if(event.target !== Board.HTMLElement())Board.grabPiece(event.target as HTMLElement,coords);
-        Board.HTMLElement().addEventListener('mouseup', onMouseUp);
+        if(event.target !== Board.BoardHTMLElement)Board.grabPiece(event.target as HTMLElement,coords);
+        Board.BoardHTMLElement.addEventListener('mouseup', onMouseUp);
     }
     return {
         startGame: function(color:t.Color){
@@ -188,7 +188,7 @@ let ChessGame = function(root: HTMLElement|null){
             if(side === 'b') Board.render(wrapper,ChessEngine.board(), true)
             else Board.render(wrapper,ChessEngine.board());
 
-            Board.HTMLElement().addEventListener('mousedown', onMouseDown);
+            Board.BoardHTMLElement.addEventListener('mousedown', onMouseDown);
 
         },
         move: function (
