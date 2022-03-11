@@ -5,7 +5,7 @@ import createVictoryPrompt from "./VictoryPrompt";
 import * as t from './types';
 import {v4 as uuid_generator} from "uuid";
 
-import {ChessGameState} from "./GameState";
+import ChessGameState from "./GameState";
 
 
 

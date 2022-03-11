@@ -2,7 +2,7 @@ import ChessView from "./ChessView";
 
 import * as t from "./types";
 
-import {ChessGameState} from "./GameState";
+import ChessGameState from "./GameState";
 const Chess = require('chess.js');
 
 
