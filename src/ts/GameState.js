@@ -1,4 +1,4 @@
-function ChessGameState(initialState = 0){
+export default function ChessGameState(initialState = 0){
     let gameState = initialState; //0b 0 000 0000
     /*
     * 0  0 0 0  0000
@@ -118,4 +118,3 @@ function ChessGameState(initialState = 0){
     }
 }
 
-module.exports = ChessGameState;
