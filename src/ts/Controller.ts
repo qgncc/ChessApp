@@ -1,22 +1,21 @@
 import ChessGame from './ChessGame';
 import createForm from "./CreateForm";
-import createWatingScreen from "./WaitingScreen";
+import createWaitingScreen from "./WaitingScreen";
 import createVictoryPrompt from "./VictoryPrompt";
 import * as t from './types';
 import {v4 as uuid_generator} from "uuid";
 
-const ChessState = require('src/ts/GameState');
+import {ChessGameState} from "./GameState";
+
 
 
 export default function Controller(socket: WebSocket,host: string,root: HTMLElement){
 
-
-
     let form = createForm();
-    let waitingScreen = createWatingScreen();
+    let waitingScreen = createWaitingScreen();
     let victoryWindow = createVictoryPrompt();
 
-    let state = ChessState();
+    let state = ChessGameState();
     let Chess = ChessGame(root);
     let side:t.Color;
     let roomID: string;
@@ -35,7 +34,7 @@ export default function Controller(socket: WebSocket,host: string,root: HTMLElem
     function onGameEnd(event: CustomEventInit) {
         let newState = event.detail.state;
         state.set(newState);
-        let result: t.Color|"draw" = state.isDraw? "draw" : state.isWhiteWon? "w" : "b";
+        let result: t.Color|"draw" = state.isDraw()? "draw" : state.isWhiteWon()? "w" : "b";
         victoryWindow.render(root, result);
         declareEndOfGame(state.value);
     }
