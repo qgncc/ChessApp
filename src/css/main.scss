@@ -1,9 +1,27 @@
-$bg_dark: #252525;
-$border_dark: #333333;
+@import url("https://unicons.iconscout.com/release/v4.0.0/css/line.css");
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Smooch+Sans:wght@400;600;700&display=swap');
+
+$dark: #252525;
+$dark_2: #171717;
+$dark_3: #0c0c0c;
+$light: #fff;
+$light_2: #dedede;
+
+#svg-bg {
+  --pattern-bg:#252525;
+  --pattern-fg:#000;
+  height: 100vh;
+  position: absolute;
+}
 
 body{
+  @media (max-width: 500px) {
+    font-size:14px;
+  }
   margin: 0;
-  color:#fff;
+  color:$light;
+  font-size: 20px;
+  font-family: "Smooch Sans", sans-serif;
 }
 
 
@@ -60,10 +78,12 @@ $row:0;
 
   height: 100vh;
 
-  &-t{
-    background-color: $bg_dark;
-  }
+  background-color: $dark;
+  background-size: 100vh;
+  background-image: url("img/background.svg");
 }
+
+
 
 .chessboard{
   width: 100%;
@@ -75,7 +95,7 @@ $row:0;
 
 
   background-repeat: no-repeat;
-  background-image: url('../img/chessboard.png');
+  background-image: url('img/chessboard.png');
   background-size: 100%;
 }
 
@@ -103,7 +123,7 @@ $row:0;
 
 
 .promotion-window{
-  background-color: #fff;
+  background-color: $light;
   border-radius: 3px;
   bottom: 0;
   box-shadow: 3px 3px 10px rgba(0,0,0,.45);
@@ -180,6 +200,73 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
+
+.black_box{
+  @media(max-width: 745px){
+    width: 100%;
+    border-radius: 0;
+  }
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgba(0,0,0,0.5);
+}
+.link_box{
+  @media(max-width: 322px){
+    flex-direction: column;
+  }
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.link_box__icon{
+  display:block;
+  padding: 1rem;
+}
+.link_box__url{
+  width: 100%;
+  box-sizing: border-box;
+  div{
+    overflow: hidden;
+    width: 100%;
+  }
+  @media(max-width: 322px){
+    width: 100%;
+    border-radius: 0.33rem 0.33rem 0 0;
+
+  }
+  cursor: text;
+  color:$dark_3;
+  background-color: $light;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  border: 0.08rem $light solid;
+  border-right: 0;
+  border-radius: 0.33rem 0 0 0.33rem;
+}
+
+.link_box__copy_button{
+  cursor:pointer;
+  @media (max-width: 322px) {
+    width: 100%;
+    border-radius: 0 0 0.33rem 0.33rem;
+  }
+  font-size: 100%;
+  border:1px $light solid;
+  border-radius: 0 0.33rem 0.33rem 0;
+  background-color: $dark;
+  color: $light;
+  &:hover{
+    background-color: $dark_2;
+    color: $light_2;
+    border-color: $light;
+  }
+  &:active {
+    background-color: $dark_3;
+  }
+}
+
+
 
 /* Rounded sliders */
 .slider.round {
