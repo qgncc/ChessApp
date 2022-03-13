@@ -143,7 +143,7 @@ $row:0;
     padding-top: 100%;
     position: relative;
   }
-  &.top{
+  &--top{
     flex-direction: column-reverse;
   }
 
@@ -217,54 +217,59 @@ input:checked + .slider:before {
   width: 100%;
   display: flex;
   flex-direction: row;
-}
-.link_box__icon{
-  display:block;
-  padding: 1rem;
-}
-.link_box__url{
-  width: 100%;
-  box-sizing: border-box;
-  div{
-    overflow: hidden;
-    width: 100%;
+  &__icon{
+    display:block;
+    padding: 1rem;
   }
-  @media(max-width: 322px){
-    width: 100%;
-    border-radius: 0.33rem 0.33rem 0 0;
+  &__url{
 
+    div{
+      overflow: hidden;
+      width: 100%;
+    }
+
+    width: 100%;
+    box-sizing: border-box;
+
+    @media(max-width: 322px){
+      width: 100%;
+      border-radius: 0.33rem 0.33rem 0 0;
+
+    }
+    cursor: text;
+    color:$dark_3;
+    background-color: $light;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    border: 0.08rem $light solid;
+    border-right: 0;
+    border-radius: 0.33rem 0 0 0.33rem;
   }
-  cursor: text;
-  color:$dark_3;
-  background-color: $light;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  border: 0.08rem $light solid;
-  border-right: 0;
-  border-radius: 0.33rem 0 0 0.33rem;
+  &__copy_button{
+    cursor:pointer;
+    @media (max-width: 322px) {
+      width: 100%;
+      border-radius: 0 0 0.33rem 0.33rem;
+    }
+    font-size: 100%;
+    border:1px $light solid;
+    border-radius: 0 0.33rem 0.33rem 0;
+    background-color: $dark;
+    color: $light;
+    &:hover{
+      background-color: $dark_2;
+      color: $light_2;
+      border-color: $light;
+    }
+    &:active {
+      background-color: $dark_3;
+    }
+  }
 }
 
-.link_box__copy_button{
-  cursor:pointer;
-  @media (max-width: 322px) {
-    width: 100%;
-    border-radius: 0 0 0.33rem 0.33rem;
-  }
-  font-size: 100%;
-  border:1px $light solid;
-  border-radius: 0 0.33rem 0.33rem 0;
-  background-color: $dark;
-  color: $light;
-  &:hover{
-    background-color: $dark_2;
-    color: $light_2;
-    border-color: $light;
-  }
-  &:active {
-    background-color: $dark_3;
-  }
-}
+
+
 
 
 
@@ -277,7 +282,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.top{
-  top:0;
-  bottom: auto;
-}
+
+
+

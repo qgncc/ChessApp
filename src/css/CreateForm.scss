@@ -4,14 +4,17 @@
   width: 200px;
   height: 75px;
   cursor: pointer;
-}
-
-.t-button-start {
   background-color: #5b8632;
   color: #fff;
   font-family: Comfortaa, sans-serif;
 
 
+  &--margin--15{
+    margin: 15px;
+  }
+  &--corners--rounded{
+    border-radius: 0.5rem;
+  }
   &:hover {
     background-color: #507729;
   }
@@ -21,20 +24,22 @@
   }
 }
 .any{
-  background-image: url("../img/any.png");
+  background-image: url("img/any.png");
 }
 
 
-.margin-15{
-  margin: 15px;
-}
+
 .options{
   display: flex;
+  flex-wrap:wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0 10px;
+
   &__option{
+
+    background-repeat: no-repeat;
     box-sizing: border-box;
     background-size: 100%;
     display: block;

@@ -1,18 +1,21 @@
-import '../css/createRoomButton.scss'
+import '../css/CreateForm.scss';
 
 export default function createForm  () {
+    let black_box = document.createElement("div");
+    black_box.className = "black_box"
+
     let form = document.createElement("form");
     form.className = "options";
 
     let button = document.createElement("button");
     button.id = "createRoom";
-    button.className = "button t-button-start margin-15";
+    button.className = "button button--margin--15 button--corners--rounded";
     button.append("Create room");
 
     function destroyForm(){
-        let parent = form.parentNode
+        let parent = black_box.parentNode
         if(parent){
-            parent.removeChild(form);
+            parent.removeChild(black_box);
         }
     }
     function whichRadioButtonIsChecked(radios:HTMLInputElement[]) {
@@ -43,6 +46,7 @@ export default function createForm  () {
         form.append(input)
         form.append(label)
         form.append(button)
+        black_box.append(form)
     });
 
 
@@ -51,7 +55,7 @@ export default function createForm  () {
         button: button,
         radioList: radios,
         render: (root: HTMLElement) => {
-            root.append(form);
+            root.append(black_box);
         },
         whichChecked: () => whichRadioButtonIsChecked(radios),
         destroy: destroyForm
