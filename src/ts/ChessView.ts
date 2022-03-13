@@ -3,58 +3,62 @@ import * as t from "./types";
 let ChessView = function () {
 
 
-        const BLACK_PIECES_CLASSES = {
-            'r': 'br',
-            'n': 'bn',
-            'b': 'bb',
-            'q': 'bq',
-            'k': 'bk',
-            'p': 'bp',
-        } as const
+    const BLACK_PIECES_CLASSES = {
+        'r': 'br',
+        'n': 'bn',
+        'b': 'bb',
+        'q': 'bq',
+        'k': 'bk',
+        'p': 'bp',
+    } as const
 
-        const WHITE_PIECES_CLASSES = {
-            'r': 'wr',
-            'n': 'wn',
-            'b': 'wb',
-            'q': 'wq',
-            'k': 'wk',
-            'p': 'wp',
-        } as const
+    const WHITE_PIECES_CLASSES = {
+        'r': 'wr',
+        'n': 'wn',
+        'b': 'wb',
+        'q': 'wq',
+        'k': 'wk',
+        'p': 'wp',
+    } as const
 
-        const PIECE_CLASSES_LIST:any = Object.values(WHITE_PIECES_CLASSES).concat(Object.values(BLACK_PIECES_CLASSES) as any);
+    const PIECE_CLASSES_LIST:any = Object.values(WHITE_PIECES_CLASSES).concat(Object.values(BLACK_PIECES_CLASSES) as any);
 
-        const PROMOTION_PIECES = ["r", "n", "b", "q"] as const;
-
-
-        let mainContainer = document.createElement("div");
-        getBoardSize(mainContainer)
-
-        window.addEventListener("resize", ()=> {
-            getBoardSize(mainContainer);
-        });
+    const PROMOTION_PIECES = ["r", "n", "b", "q"] as const;
 
 
 
-        let boardHTMLElement = document.createElement('div');
+
+
+    let boardHTMLElement = document.createElement('div');
         boardHTMLElement.className = "chessboard";
         boardHTMLElement.id = "chessboard";
 
-        mainContainer.append(boardHTMLElement);
 
-        let boardWidth: number;
-        let boardHeight: number;
+    let boardWidth: number;
+    let boardHeight: number;
 
-        let selectedPiece: t.Piece | null = null;
+    let selectedPiece: t.Piece | null = null;
 
-        let promotionWindowHTML: HTMLElement;
-        let promotionCallback: (pieceType: t.PieceType, pieceColor: t.Color, promotionArgs?:any) => void;
-        let promotionArgs: any;
+    let promotionWindowHTML: HTMLElement;
+    let promotionCallback: (pieceType: t.PieceType, pieceColor: t.Color, promotionArgs?:any) => void;
+    let promotionArgs: any;
 
-        let isFlipped: boolean;
+    let isFlipped: boolean;
+
+    let mainContainer = document.createElement("div");
+    mainContainer.append(boardHTMLElement);
+
+
+    getBoardSize(mainContainer)
+
+    window.addEventListener("resize", ()=> {
+            getBoardSize(mainContainer);
+        });
 
     // UTILITIES
         function getBoardSize(container: HTMLDivElement) {
             let containerSize = window.innerWidth>window.innerHeight? window.innerHeight - 15: window.innerWidth-15;
+            boardWidth = boardHeight = containerSize;
             container.style.width = container.style.height = containerSize+"px";
         }
         let toNumeric = function(i: t.AlgebraicNotation): t.Square{
@@ -121,7 +125,7 @@ let ChessView = function () {
 
             moveAtBoardCoords({x, y}, selectedPiece);
 
-            document.addEventListener("mousemove", dragPiece);
+            document.addEventListener("pointermove", dragPiece);
         }
 
 
@@ -238,7 +242,7 @@ let ChessView = function () {
 
             if(promotionWindowHTML.style.display !== "none") {
                 promotionWindowHTML.style.display = "none";
-                window.removeEventListener('mousedown', closePromotionWindow);
+                window.removeEventListener('pointerdown', closePromotionWindow);
             }
         }
 
@@ -252,7 +256,7 @@ let ChessView = function () {
                 let piece = createPieceHTML(pieceType, piecesColor);
                 piece.classList.replace("piece","promotion-piece");
                 promotionWindow.append(piece)
-                piece.addEventListener('mousedown',onPromotion);
+                piece.addEventListener('pointerdown',onPromotion);
             }
 
             setPromotionWindowPosition(square,promotionWindow);
@@ -266,7 +270,7 @@ let ChessView = function () {
         ){
             promotionCallback = promotionFunction;
             promotionArgs = promotionArguments;
-            setTimeout(()=>window.addEventListener('mousedown', closePromotionWindow),0);
+            setTimeout(()=>window.addEventListener('pointerdown', closePromotionWindow),0);
             if(typeof promotionWindowHTML === "undefined"){
                 renderPromotionWindow(square,piecesColor);
                 return;
@@ -328,7 +332,7 @@ let ChessView = function () {
             if(!selectedPiece) return;
             selectedPiece.html.classList.remove('dragging');
             selectedPiece.html.style.cssText = "";
-            document.removeEventListener("mousemove", dragPiece);
+            document.removeEventListener("pointermove", dragPiece);
 
         };
 

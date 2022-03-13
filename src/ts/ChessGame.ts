@@ -161,7 +161,7 @@ let ChessGame = function(root: HTMLElement|null){
             }
         }
         Board.stopDragging();
-        Board.BoardHTMLElement.removeEventListener('mouseup', onMouseUp);
+        Board.BoardHTMLElement.removeEventListener('pointerup', onMouseUp);
     }
 
     let onMouseDown = function (event:MouseEvent) {
@@ -177,7 +177,7 @@ let ChessGame = function(root: HTMLElement|null){
             }
         }
         if(event.target !== Board.BoardHTMLElement)Board.grabPiece(event.target as HTMLElement,coords);
-        Board.BoardHTMLElement.addEventListener('mouseup', onMouseUp);
+        Board.BoardHTMLElement.addEventListener('pointerup', onMouseUp);
     }
     return {
         startGame: function(color:t.Color){
@@ -188,7 +188,7 @@ let ChessGame = function(root: HTMLElement|null){
             if(side === 'b') Board.render(wrapper,ChessEngine.board(), true)
             else Board.render(wrapper,ChessEngine.board());
 
-            Board.BoardHTMLElement.addEventListener('mousedown', onMouseDown);
+            Board.BoardHTMLElement.addEventListener('pointerdown', onMouseDown);
 
         },
         move: function (
