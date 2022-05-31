@@ -1,3 +1,5 @@
+# Заброшено. Переделано на React. Можно глянуть [здесь](https://github.com/0xEVG/chess-on-react);
+
 # ChessApp
 ***
 [Backend здесь](https://github.com/0xEVG/ChessBackend)
